@@ -12,6 +12,9 @@
     "review": "node app.js review"
   },
   "dependencies": {
+    "@babel/parser": "^7.28.5",
+    "@babel/traverse": "^7.28.5",
+    "@babel/types": "^7.28.5",
     "@lancedb/lancedb": "^0.23.0",
     "@langchain/textsplitters": "^1.0.1",
     "glob": "^13.0.0",

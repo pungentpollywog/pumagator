@@ -16,13 +16,13 @@ export async function reviewCode(codeSnippet, filePath) {
     .limit(3) // Get top 3 most relevant code blocks
     .toArray();
 
-  const contextText = results.map(r => 
-    `[Source: ${r.source}]\n${r.text}`
+  const contextText = results.map(result => 
+    `[Source: ${result.source}]\n${result.text}`
   ).join('\n\n');
 
   // 3. Construct the Prompt
   const prompt = `
-  You are a Senior Software Architect. Review the following code snippet.
+  You are a Senior Software Engineer. Review the following React component.
   
   Use the provided "Project Context" to understand dependencies, utility functions, 
   and coding patterns used in this project.
@@ -30,13 +30,14 @@ export async function reviewCode(codeSnippet, filePath) {
   ## Project Context
   ${contextText}
   
-  ## Code to Review (File: ${filePath})
+  ## Code to Review ${filePath}
   ${codeSnippet}
   
   ## Instructions
-  1. Analyze for bugs, security risks, and performance issues.
-  2. Check consistency with the patterns seen in "Project Context".
-  3. Provide concrete refactoring suggestions.
+  1. Analyze the "Code to Review" snippet for bugs, code smells, unused variables, unused parameters, and performance issues.
+  2. Ignore comments. 
+  3. Check consistency with the patterns seen in "Project Context". 
+  4. Provide concrete refactoring suggestions.
   `;
 
   // 4. Generate Review with Zephyr
