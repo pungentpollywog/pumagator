@@ -32,12 +32,15 @@ Note: Must index at least once before reviewing.
 
 Example: 
 ```bash 
-npm run index "/c/Users/chris/src/git/lowell/review/jpennewell/todos-app/src"
 npm run index "/c/Users/chris/src/git/lowell/projects/cdemaria/todos-app/src"
+# or 
+npm run index "/c/Users/chris/src/git/lowell/review/jpennewell/todos-app/src"
 ```
 
 Then...
 ```bash 
 npm run review "/c/Users/chris/src/git/lowell/projects/cdemaria/todos-app/src/components/Dash.jsx"
+# or 
 npm run review "/c/Users/chris/src/git/lowell/review/jpennewell/todos-app/src/components/Dash.jsx"
+# (respectively)
 ```
