@@ -1,16 +1,16 @@
 # pumagator
 
-Automated CR system using Zephyr model, RAG, and LanceDB. 
+Automated CR system using ~~Zephyr~~ Gemma3:12b model, Retrieval-Augmented Generation (RAG), Abstract Syntax Tree (AST), and LanceDB (Vector Database). 
 
 ## Setup 
 
 Install these models within Ollama:
-- zephyr
+- ~~zephyr~~ gemma3:12b
 - nomic-embed-text
 
 via...
 ```bash
-ollama pull zephyr           # The Chat Model
+ollama pull gemma3:12b       # The Chat Model
 ollama pull nomic-embed-text # The Embedding Model (smaller, better for code)
 ```
 
