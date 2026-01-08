@@ -69,7 +69,7 @@ function addChunk(path, file, code, type, documents) {
   const chunkContent = code.slice(start, end);
 
   // Filter out tiny helpers (e.g., 1-line functions) to reduce noise
-  if (chunkContent.length < 50) return;
+  // if (chunkContent.length < 50) return;
 
   documents.push({
     pageContent: chunkContent,

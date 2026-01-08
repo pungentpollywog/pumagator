@@ -22,23 +22,23 @@ export async function reviewCode(codeSnippet, filePath) {
 
   // 3. Construct the Prompt
   const prompt = `
-  You are a Senior Software Engineer. Review the following React component.
-  
-  Use the provided "Project Context" to understand dependencies, utility functions, 
-  and coding patterns used in this project.
+  You are a Senior Software Engineer reviewing React code.
   
   ## Project Context
   ${contextText}
   
-  ## Code to Review ${filePath}
+  ## Code to Review
   ${codeSnippet}
   
   ## Instructions
-  1. Analyze the "Code to Review" snippet for bugs, code smells, unused variables, unused parameters, and performance issues.
-  2. Ignore comments. 
-  3. Check consistency with the patterns seen in "Project Context". 
-  4. Provide concrete refactoring suggestions.
+  1. Use the code in the provided "Project Context" section to understand dependencies, utility functions, and coding patterns used in this project.
+  2. Analyze code in the "Code to Review" section for bugs, unused variables, unused parameters, and performance issues.
+  3. Ignore comments. 
+  4. Functional code is preferred. 
+  5. Provide concrete refactoring suggestions.
   `;
+
+  //   4. Check consistency with the patterns seen in the "Project Context" section. Function names do not have to match the context.
 
   // 4. Generate Review with Zephyr
   console.log("Consulting Zephyr...");
