@@ -4,7 +4,17 @@ import lancedb from '@lancedb/lancedb';
 export async function reviewCode(codeSnippet) {
   const db = await lancedb.connect('data/code-review-index');
   const table = await db.openTable('code_chunks');
-  const modelName = 'gemma3:12b'; // was 'zephyr'
+  const models = [
+    'gemma3:12b',
+    'zephyr',
+    'magicoder',
+    'yi-coder',
+    'codellama',
+    'deepseek-coder',
+    'codegemma',
+  ];
+
+  const modelName = models.at(-1);
 
   // 1. Embed the target code to find relevant context
   const queryEmbedding = await ollama.embeddings({
@@ -13,13 +23,14 @@ export async function reviewCode(codeSnippet) {
   });
 
   // 2. Retrieve relevant chunks (Vector Search)
-  const results = await table.vectorSearch(queryEmbedding.embedding)
+  const results = await table
+    .vectorSearch(queryEmbedding.embedding)
     .limit(3) // Get most relevant code blocks
     .toArray();
 
-  const contextText = results.map(result => 
-    `[Source: ${result.source}]\n${result.text}`
-  ).join('\n\n');
+  const contextText = results
+    .map((result) => `[Source: ${result.source}]\n${result.text}`)
+    .join('\n\n');
 
   // 3. Construct the Prompt
   const prompt = `
@@ -31,15 +42,15 @@ export async function reviewCode(codeSnippet) {
   ## Code to Review
   ${codeSnippet}
   
-  ## Instructions
+  ## Review Instructions
   1. Use the code in the provided "Project Context" section to understand dependencies, utility functions, and coding patterns used in this project.
   2. Analyze the component in the "Code to Review" section for bugs, unused variables, unused parameters, and performance issues.
-  3. Only review the code in the "Code to Review" section.
-  4. Ignore comments. 
+  3. Only remark about code in the "Code to Review" section. Do not comment on reference code in the "Project Context" section.
+  4. Ignore code that has been commented out. 
   5. Functional code is preferred.
   6. Provide simple refactoring suggestions if needed.
 
-  ## Instructions for AI workflow:
+  ## Instructions for AI workflow
   1.  **Step-by-Step Generation:** Generate the initial result by thinking through the problem thoroughly.
   2.  **Internal Review:** After generating the result, pause and critically evaluate the answer you generated in step 1. Check it against the original task instructions and constraints.
   3.  **Correction:** If you find any errors during the internal review, correct them.
