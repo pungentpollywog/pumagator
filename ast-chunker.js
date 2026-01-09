@@ -7,7 +7,7 @@ const traverse = _traverse.default; // Handle ESM/CommonJS interop
 
 export async function loadAndChunkFilesAST(directory) {
   const files = await glob(`${directory}/**/*.{js,ts,jsx,tsx}`, { 
-    ignore: ['**/node_modules/**', '**/data/**', '*.md', '*.json']
+    ignore: ['**/node_modules/**', '**/data/**', '**/*.md', '**/*.json']
   });
 
   const documents = [];

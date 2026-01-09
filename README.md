@@ -44,3 +44,7 @@ npm run review "/c/Users/chris/src/git/lowell/projects/cdemaria/todos-app/src/co
 npm run review "/c/Users/chris/src/git/lowell/review/jpennewell/todos-app/src/components/Dash.jsx"
 # (respectively)
 ```
+
+## Next steps for dev
+
+See [TODO.md](./TODO.md) file.
