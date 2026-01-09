@@ -1,29 +1,36 @@
-import { loadAndChunkFilesAST } from './ast-chunker.js'; 
+import { loadAndChunkFilesAST } from './ast-chunker.js';
 import { indexCodebase } from './store.js';
 import { reviewCode } from './review.js';
+import { batchGitReview } from './bulk-reviewer/git-batch-reviewer.js';
 import fs from 'node:fs';
+
+async function singleFileReview(targetFile) {
+  if (!targetFile) {
+    console.error('Please provide a file to review.');
+    return;
+  }
+  const code = fs.readFileSync(targetFile, 'utf-8');
+  await reviewCode(code, targetFile);
+}
 
 async function main() {
   const mode = process.argv[2]; // 'index' or 'review'
 
-  if (mode === 'index') {
-    // Usage: node index.js index ./src
-    const targetDir = process.argv[3] || './src';
-    const chunks = await loadAndChunkFilesAST(targetDir);
-    await indexCodebase(chunks);
-  } else if (mode === 'review') {
-    // Usage: node index.js review ./src/auth/login.ts
-    const targetFile = process.argv[3];
-    if (!targetFile) {
-      console.error('Please provide a file to review.');
-      return;
-    }
-    const code = fs.readFileSync(targetFile, 'utf-8');
-    await reviewCode(code, targetFile);
-  } else {
-    console.log('Usage:');
-    console.log('  Index project:  node index.js index <directory>');
-    console.log('  Review file:    node index.js review <filepath>');
+  switch (mode) {
+    case 'index':
+      await loadAndChunkFilesAST(process.argv[3] || './src').then(indexCodebase);
+      break;
+    case 'review':
+      await singleFileReview(process.argv[3]);
+      break;
+    case 'batch':
+      await batchGitReview();
+      break;
+    default:
+      console.log('Usage:');
+      console.log('  Index project:  npm index <directory>');
+      console.log('  Review file:    npm review <filepath>');
+      console.log('  Bulk review:    npm batch # from within project to be reviewed');
   }
 }
 
