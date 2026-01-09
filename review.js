@@ -14,7 +14,7 @@ export async function reviewCode(codeSnippet) {
 
   // 2. Retrieve relevant chunks (Vector Search)
   const results = await table.vectorSearch(queryEmbedding.embedding)
-    .limit(5) // Get most relevant code blocks
+    .limit(3) // Get most relevant code blocks
     .toArray();
 
   const contextText = results.map(result => 
@@ -36,8 +36,8 @@ export async function reviewCode(codeSnippet) {
   2. Analyze the component in the "Code to Review" section for bugs, unused variables, unused parameters, and performance issues.
   3. Only review the code in the "Code to Review" section.
   4. Ignore comments. 
-  5. Functional code is preferred. 
-  6. Provide simple refactoring suggestions.
+  5. Functional code is preferred.
+  6. Provide simple refactoring suggestions if needed.
 
   ## Instructions for AI workflow:
   1.  **Step-by-Step Generation:** Generate the initial result by thinking through the problem thoroughly.

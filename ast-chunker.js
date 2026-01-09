@@ -16,14 +16,14 @@ export async function loadAndChunkFilesAST(directory) {
     const code = fs.readFileSync(file, 'utf-8');
 
     try {
-      // 1. Parse Code to AST
+      // Parse Code to AST
       // We enable plugins for TypeScript and JSX to handle modern code
       const ast = parser.parse(code, {
         sourceType: 'module',
         plugins: ['typescript', 'jsx', 'decorators-legacy']
       });
 
-      // 2. Traverse AST to find logical blocks
+      // Traverse AST to find logical blocks
       traverse(ast, {
         // Handle Functions (function foo() {})
         FunctionDeclaration(path) {
