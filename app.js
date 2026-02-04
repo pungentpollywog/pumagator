@@ -24,7 +24,7 @@ async function main() {
       await singleFileReview(process.argv[3]);
       break;
     case 'batch':
-      await batchGitReview();
+      await batchGitReview(process.argv[3] || null, process.argv[4] || '.');
       break;
     default:
       console.log('Usage:');

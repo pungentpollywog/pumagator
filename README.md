@@ -45,6 +45,27 @@ npm run review "/c/Users/chris/src/git/lowell/review/jpennewell/todos-app/src/co
 # (respectively)
 ```
 
+### for bulk reviews of Git diffs
+
+First, index the src code to be reviewed.
+```bash
+npm run index ~/src/git/dev/fullstack/r19-todos/todos-19-fe-app/src
+```
+
+Then create a diff file in the folder to be reviewed.
+
+For example ...
+```bash
+git diff > ui.diff
+```
+
+Then run: `npm run batch <path-to-diff-file> <path-to-src>`
+
+For example ...
+```bash 
+npm run batch "/c/Users/chris/src/git/dev/fullstack/r19-todos/ui.diff" "/c/Users/chris/src/git/dev/fullstack/r19-todos/todos-19-fe-app/src"
+```
+
 ## Next steps for dev
 
 See [TODO.md](./TODO.md) file.

@@ -4,9 +4,9 @@ import { analyzeDiff } from './diff-engine.js';
 import { processReviewQueue } from './orchestrator.js'; 
 import { indexCodebase } from '../store.js';
 
-export async function runBulkReview(diffOutput) {
+export async function runBulkReview(diffOutput, src='.') {
   console.log('1. Parsing Project AST...');
-  const astChunks = await loadAndChunkFilesAST('.');
+  const astChunks = await loadAndChunkFilesAST(src);
 
   console.log('Indexing code context from AST');
   // Update context stored in the Lance DB with the current codebase
