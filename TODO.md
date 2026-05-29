@@ -12,6 +12,11 @@
 
 - Look into refactoring and improving the architecture. 
 
-- Look into allowing more than one concurent process.
+- Look into allowing more than one concurrent process.
+
+- Make an option that will perform a CR for a given project and MR diff using one of the following Git options:
+  - Direct Comparison: `git diff main feature` (or `git diff main..feature`) shows all differences between the tips of the two branches.
+  - Merge Base Comparison: `git diff main...feature` shows changes in the feature branch since it originally diverged from main. This is typically what you see in a Pull Request.
+  - See: https://www.geeksforgeeks.org/git/how-to-see-the-differences-between-two-branches/
 
 (Back to main [README.md](README.md).)
