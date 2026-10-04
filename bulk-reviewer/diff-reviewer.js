@@ -27,9 +27,24 @@ export async function reviewDiff(modifiedScope, relevantContext) {
     Provide a concise critique focusing on bugs and patterns.
     `;
 
+    console.log({prompt});
+
+    const models = [
+        'gemma3:12b',
+        'zephyr',
+        'magicoder',
+        'yi-coder',
+        'codellama',
+        'deepseek-coder',
+        'codegemma',
+        'fynnhaupt2/unsloth-qwen2.5-coder-7b-instruct-128k-gguf:Q4_K_M'
+    ];
+
+    const modelName = models.at(-1);
+
     // Note: stream: false (Wait for full response)
     const response = await ollama.chat({
-        model: 'zephyr',
+        model: modelName,
         messages: [{ role: 'user', content: prompt }],
         stream: false 
     });
